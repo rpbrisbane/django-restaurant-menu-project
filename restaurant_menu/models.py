@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 MEAL_TYPE = (
@@ -8,9 +9,27 @@ MEAL_TYPE = (
     ("desserts", "Desserts")
 )
 
+STATUS = (
+    (0, "Unavailable"),
+    (1, "Available")
+)
+
 
 class Item(models.Model):
     meal = models.CharField(max_length=1000, unique=True)
     description = models.CharField(max_length=2000)
     price = models.DecimalField(decimal_places=2)
     meal_type = models.CharField(choices=MEAL_TYPE)
+
+    # Associates author to Item models, and on delete, protect the author
+    author = models.ForeignKey(User, on_delete=models.PROTECT)
+    status = models.IntegerField(choices=STATUS, default=1)
+
+    # When author creates a meal, time is stamped
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        # When the item is printed out in the admin interface,
+        # it is represented by the meal name
+        return self.meal

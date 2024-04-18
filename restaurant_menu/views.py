@@ -23,5 +23,5 @@ class MenuItemDetail(generic.DetailView):
     template_name = "menu_item_detail.html"
 
 
-class About(generic.DetailView):
+class About(generic.TemplateView):
     template_name = "about.html"

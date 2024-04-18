@@ -2,9 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Restaurant Menu</title>
 </head>
 <body>
     <h1>Restaurant Menu</h1>
+        {% for meal in meals %}
+            <h2>{{ meal.1 }}</h2>
+            {% for row in item_list %}
+                <h3>{{ row.meal }}</h3>
+                    <p>{{ row.description }}</p>
+            {% endfor %}
+        {% endfor %}
 </body>
 </html>
